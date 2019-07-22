@@ -4,28 +4,59 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.TimeUtils;
+import com.littlebiglion.base.BaseScreen;
 
 import java.util.Iterator;
 
 public class Intro extends BaseScreen {
 
     private Sprite bg, cel, floor;
-    private Texture player, dagger, daggerBack;
+    private Texture player, dagger, daggerBack, dagger3, daggerBack3;
+    private TextureAtlas textureAtlas, Btn;
+    private Animation animation, animation2, animation3, animation4;
+    private float elapsedTime = 0f;
+
+    public static final int ON_PLAY = 1;
+    public static final int ON_BACK = 2;
+
+    private ImageButton startBtn, exitBtn;
+
+
 
 
     @Override
     public void show() {
         super.show();
-        bg = new Sprite(new Texture(Gdx.files.internal("background2.png")));
-        cel = new Sprite(new Texture(Gdx.files.internal("ceiling.png")));
-        floor = new Sprite(new Texture(Gdx.files.internal("floor.png")));
+        textureAtlas = new TextureAtlas(Gdx.files.internal("spriteFire/myFire.atlas"));
+        Btn = new TextureAtlas(Gdx.files.internal("spriteButton/myButton.atlas"));
+
+        startBtn = new ImageButton(new TextureRegionDrawable(textureAtlas.findRegion("spriteButton/myButton")));
+
+        animation = new Animation(1f/6f, textureAtlas.getRegions());
+        animation2 = new Animation(1f/6f, textureAtlas.getRegions());
+        animation3 = new Animation(1f/6f, textureAtlas.getRegions());
+        animation4 = new Animation(1f/6f, textureAtlas.getRegions());
+
+        bg = new Sprite(new Texture(Gdx.files.internal("sprite/background2.png")));
+        cel = new Sprite(new Texture(Gdx.files.internal("sprite/ceiling.png")));
+        floor = new Sprite(new Texture(Gdx.files.internal("sprite/floor.png")));
+
         player = new Texture("player.png");
+        dagger3 = new Texture("dagger3.png");
         dagger = new Texture("dagger.png");
         daggerBack = new Texture("daggerBack.png");
+        daggerBack3 = new Texture("daggerBack3.png");
+
+
 
         bg.setPosition(0,0);
         cel.setPosition(0,55);
@@ -36,32 +67,53 @@ public class Intro extends BaseScreen {
         floor.setSize(1024,1024);
     }
 
+
     @Override
     public void render(float delta) {
         super.render(delta);
 
         camera.update();
 
+        elapsedTime += Gdx.graphics.getDeltaTime();
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        elapsedTime += Gdx.graphics.getDeltaTime();
 
         posi.add(v);
 
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-
         bg.draw(batch);
         cel.draw(batch);
+
+        // анимация огня
+        batch.draw((TextureRegion) animation.getKeyFrame(elapsedTime,true),900,300);
+        batch.draw((TextureRegion) animation.getKeyFrame(elapsedTime,true),700,300);
+        batch.draw((TextureRegion) animation.getKeyFrame(elapsedTime,true),500,300);
+        batch.draw((TextureRegion) animation.getKeyFrame(elapsedTime,true),300,300);
+        batch.draw((TextureRegion) animation.getKeyFrame(elapsedTime,true),100,300);
+
+
         floor.draw(batch);
 
         batch.draw(player, posi.x, posi.y, 50, 50);
 
+//        batch.draw(bg, 0,0,1024,700);
+//        batch.draw(bg, 0,0,1024,700);
+//        batch.draw(bg, 0,0,1024,700);
+
         for (Rectangle daggerDrop : daggerDrops) {
             batch.draw(dagger, daggerDrop.x, daggerDrop.y, 50,25);
         }
+//        for (Rectangle daggerDrop3 : daggerDrops) {
+//            batch.draw(dagger, daggerDrop3.x, daggerDrop3.y, 50,25);
+//        }
         for (Rectangle daggerDropBack : daggerDropsBack) {
             batch.draw(daggerBack, daggerDropBack.x, daggerDropBack.y, 50,25);
         }
+//        for (Rectangle daggerDropBack3 : daggerDropsBack) {
+//            batch.draw(daggerBack3, daggerDropBack3.x, daggerDropBack3.y, 250,100);
+//        }
 
         batch.end();
 
@@ -104,9 +156,13 @@ public class Intro extends BaseScreen {
             v = new Vector2(-x, -y);
         }
 
-        if (TimeUtils.nanoTime() - lastDropTime > 999950000) {
+        if (TimeUtils.nanoTime() - lastDropTime > 1000000000) {
             spawnDagger();
             spawnDaggerBack();
+        }
+
+        for (int i = 0; i < 0; i++){
+            spawnDagger();
         }
 
         Iterator<Rectangle> iter = daggerDrops.iterator();
@@ -144,7 +200,6 @@ public class Intro extends BaseScreen {
         player.dispose();
         daggerBack.dispose();
         dagger.dispose();
-
     }
 
 }
