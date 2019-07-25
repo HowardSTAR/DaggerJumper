@@ -1,0 +1,48 @@
+
+mySprite.png
+size: 1024,512
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+background
+  rotate: false
+  xy: 2, 265
+  size: 512, 233
+  orig: 512, 233
+  offset: 0, 0
+  index: -1
+dagger
+  rotate: false
+  xy: 260, 242
+  size: 56, 21
+  orig: 56, 21
+  offset: 0, 0
+  index: -1
+daggerBack
+  rotate: false
+  xy: 516, 368
+  size: 56, 21
+  orig: 56, 21
+  offset: 0, 0
+  index: -1
+exit
+  rotate: false
+  xy: 2, 116
+  size: 256, 147
+  orig: 256, 147
+  offset: 0, 0
+  index: -1
+player
+  rotate: false
+  xy: 2, 2
+  size: 119, 112
+  orig: 119, 112
+  offset: 0, 0
+  index: -1
+start
+  rotate: false
+  xy: 516, 391
+  size: 256, 107
+  orig: 256, 107
+  offset: 0, 0
+  index: -1
