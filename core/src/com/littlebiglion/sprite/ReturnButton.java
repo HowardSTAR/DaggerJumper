@@ -7,9 +7,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.littlebiglion.base.ScaledTouchUpButton;
 import com.littlebiglion.screen.GameScreen;
 
-public class StartButton extends ScaledTouchUpButton {
+public class ReturnButton extends ScaledTouchUpButton {
 
-    private TextureRegion startBtn;
+    private TextureRegion returnBtn;
     private Game game;
     private int x = 290;
     private int y = 200;
@@ -19,10 +19,10 @@ public class StartButton extends ScaledTouchUpButton {
      * @param atlas
      * @param game
      */
-    public StartButton(TextureAtlas atlas, Game game) {
-        super(atlas.findRegion("start"));
+    public ReturnButton(TextureAtlas atlas, Game game) {
+        super(atlas.findRegion("return"));
         this.game = game;
-        startBtn = atlas.findRegion("start");
+        returnBtn = atlas.findRegion("return");
     }
 
     /**
@@ -32,13 +32,11 @@ public class StartButton extends ScaledTouchUpButton {
     @Override
     public void draw(SpriteBatch batch) {
         super.draw(batch);
-        batch.draw(startBtn,x,y, 90 ,50);
+        batch.draw(returnBtn,x,y, 90 ,50);
     }
 
     @Override
     public void action() {
         game.setScreen(new GameScreen(game));
     }
-
-
 }

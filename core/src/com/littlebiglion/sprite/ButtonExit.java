@@ -10,6 +10,9 @@ import com.littlebiglion.base.ScaledTouchUpButton;
 public class ButtonExit extends ScaledTouchUpButton {
 
     public TextureRegion exitBtn;
+    public int x = 630;
+    public int y = 200;
+
 
     /**
      *
@@ -27,7 +30,7 @@ public class ButtonExit extends ScaledTouchUpButton {
     @Override
     public void draw(SpriteBatch batch) {
         super.draw(batch);
-        batch.draw(exitBtn, 600,200, 90, 50);
+        batch.draw(exitBtn, x, y, 90, 50);
     }
 
     @Override

@@ -34,6 +34,8 @@ public abstract class ScaledTouchUpButton extends Sprite {
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 
+        System.out.println("popal");
+
         action();
 
         return false;

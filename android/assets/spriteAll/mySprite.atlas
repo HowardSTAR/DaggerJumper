@@ -1,48 +1,90 @@
 
 mySprite.png
-size: 1024,512
+size: 1024,256
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+DaggerJunper
+  rotate: false
+  xy: 516, 80
+  size: 92, 48
+  orig: 92, 48
+  offset: 0, 0
+  index: -1
+GameOver
+  rotate: false
+  xy: 637, 209
+  size: 61, 33
+  orig: 61, 33
+  offset: 0, 0
+  index: -1
 background
   rotate: false
-  xy: 2, 265
+  xy: 2, 9
   size: 512, 233
   orig: 512, 233
   offset: 0, 0
   index: -1
 dagger
   rotate: false
-  xy: 260, 242
+  xy: 516, 29
   size: 56, 21
   orig: 56, 21
   offset: 0, 0
   index: -1
 daggerBack
   rotate: false
-  xy: 516, 368
-  size: 56, 21
-  orig: 56, 21
+  xy: 2, 2
+  size: 16, 5
+  orig: 16, 5
+  offset: 0, 0
+  index: -1
+dimond
+  rotate: false
+  xy: 579, 57
+  size: 26, 21
+  orig: 26, 21
   offset: 0, 0
   index: -1
 exit
   rotate: false
-  xy: 2, 116
-  size: 256, 147
-  orig: 256, 147
+  xy: 516, 52
+  size: 61, 26
+  orig: 61, 26
+  offset: 0, 0
+  index: -1
+hp
+  rotate: false
+  xy: 610, 110
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: -1
+hp_off
+  rotate: false
+  xy: 637, 161
+  size: 18, 18
+  orig: 18, 18
   offset: 0, 0
   index: -1
 player
   rotate: false
-  xy: 2, 2
+  xy: 516, 130
   size: 119, 112
   orig: 119, 112
   offset: 0, 0
   index: -1
+return
+  rotate: false
+  xy: 637, 181
+  size: 61, 26
+  orig: 61, 26
+  offset: 0, 0
+  index: -1
 start
   rotate: false
-  xy: 516, 391
-  size: 256, 107
-  orig: 256, 107
+  xy: 700, 216
+  size: 61, 26
+  orig: 61, 26
   offset: 0, 0
   index: -1

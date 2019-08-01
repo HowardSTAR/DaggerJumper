@@ -10,9 +10,11 @@ import com.littlebiglion.base.BaseScreen;
 import com.littlebiglion.sprite.BackGround;
 import com.littlebiglion.sprite.ButtonExit;
 import com.littlebiglion.sprite.Fire;
-import com.littlebiglion.sprite.StartButton;
+import com.littlebiglion.sprite.ReturnButton;
 
-public class Intro extends BaseScreen {
+import static com.littlebiglion.screen.GameScreen.score;
+
+public class GameOver extends BaseScreen {
 
     private Game game;
 
@@ -22,18 +24,19 @@ public class Intro extends BaseScreen {
     private BackGround bg;
     private Fire fire;
 
-    private Texture tittle;
-
     private ButtonExit btnExt;
-    private StartButton btnStrt;
+    private ReturnButton btnRet;
+
+    private Texture title;
 
     /**
      *
      * @param game
      */
-    public Intro(Game game) {
+    public GameOver(Game game) {
         this.game = game;
     }
+
 
     @Override
     public void show() {
@@ -44,12 +47,13 @@ public class Intro extends BaseScreen {
         bg = new BackGround(atlas);
 
         btnExt = new ButtonExit(atlas);
-        btnStrt = new StartButton(atlas, game);
+        btnRet = new ReturnButton(atlas, game);
 
         atlasfire = new TextureAtlas(Gdx.files.internal("spriteFire/myFire.atlas"));
         fire = new Fire(atlasfire);
 
-        tittle = new Texture(Gdx.files.internal("sprite/DaggerJumper.png"));
+        title = new Texture(Gdx.files.internal("sprite/GameOver.png"));
+
     }
 
     /**
@@ -61,7 +65,6 @@ public class Intro extends BaseScreen {
     public void resize(int width, int height) {
         super.resize(width, height);
     }
-
 
     /**
      *
@@ -88,7 +91,7 @@ public class Intro extends BaseScreen {
         }
 
         else if ((screenX >= star1.x && screenX <= star2.x) && (screenY >= star1.y && screenY <= star2.y)) {
-            btnStrt.touchDown(screenX, screenY, pointer, button);
+            btnRet.touchDown(screenX, screenY, pointer, button);
         }
         return false;
     }
@@ -119,7 +122,7 @@ public class Intro extends BaseScreen {
         }
 
         else if ((screenX >= star1.x && screenX <= star2.x) && (screenY >= star1.y && screenY <= star2.y)) {
-            btnStrt.touchUp(screenX, screenY, pointer, button);
+            btnRet.touchUp(screenX, screenY, pointer, button);
         }
 
         return false;
@@ -140,7 +143,6 @@ public class Intro extends BaseScreen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         elapsedTime += Gdx.graphics.getDeltaTime();
 
-
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
 
@@ -148,14 +150,14 @@ public class Intro extends BaseScreen {
 
         fire.showBatsh(batch); // DONT TOUCH!!!!!! THIS IS MAGIC!!!!11!
 
-        batch.draw(tittle, 330, 280,300,200);
+        batch.draw(title, 360, 250,300,200);
 
         btnExt.draw(batch);
-        btnStrt.draw(batch);
+        btnRet.draw(batch);
 
-        music.setVolume(0.5f);
-        music.play();
-        music.setLooping(true);
+        font.draw(batch, "YOUR SCORE:  " + (int)score, 380, 155);
+
+        music.stop();
 
         batch.end();
     }
@@ -165,12 +167,15 @@ public class Intro extends BaseScreen {
         super.dispose();
         bg.dispose();
         fire.dispose();
-        btnStrt.dispose();
+        btnRet.dispose();
         btnExt.dispose();
+        title.dispose();
+        font.dispose();
         music.dispose();
-        tittle.dispose();
         atlas.dispose();
         atlasfire.dispose();
+        game.dispose();
+        title.dispose();
         batch.dispose();
     }
 }

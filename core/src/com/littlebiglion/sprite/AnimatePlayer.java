@@ -15,17 +15,16 @@ import static com.littlebiglion.screen.GameScreen.delX;
 import static com.littlebiglion.screen.GameScreen.score;
 import static com.littlebiglion.screen.GameScreen.scoreMul;
 
-public class Player extends Sprite {
+public class AnimatePlayer extends Sprite {
 
-    public static Rectangle playerOne;
-    private TextureRegion player;
+    public static Rectangle playerAnimate;
+    private TextureRegion playerAni;
     private Vector3 positionP, vk;
     private float elapsedTime = 0f;
-    private Animation animation;
 
-    private int f = 0;
 
     private Game game;
+    private Animation animation;
 
 
     /**
@@ -35,16 +34,13 @@ public class Player extends Sprite {
     public static int y = 7;
 
 
-    //TODO сделать анимацию прыжка игрока и анимацию взятия кристала
-
     /**
      * @param atlas
-     * @param game
      */
-    public Player(TextureAtlas atlas, Game game){
-        super(atlas.findRegion("player"));
-        player = atlas.findRegion("player");
-//        animation = new Animation(1f / 3f, atlas.getRegions());
+    public AnimatePlayer(TextureAtlas atlas, Game game){
+        super(atlas.findRegion("takeAll/myTake.atlas"));
+        playerAni = atlas.findRegion("takeAll/myTake.atlas");
+        animation = new Animation(1f / 9f, atlas.getRegions());
 
 
         positionP = new Vector3();
@@ -53,59 +49,51 @@ public class Player extends Sprite {
 
         positionP.x = widthW / 2 - 60 / 2;
         positionP.y = 125;
-        playerOne = new Rectangle(0,0,60,60);
+        playerAnimate = new Rectangle(0,0,50,50);
 
         this.game = game;
     }
-
 
     /**
      * @param batch
      */
     @Override
     public void draw(SpriteBatch batch) {
-        super.draw(batch);
         positionP.add(vk);
-        playerOne.x = positionP.x;
-        playerOne.y = positionP.y;
+        playerAnimate.x = positionP.x;
+        playerAnimate.y = positionP.y;
+        playerAnimate.width += vk.x;
 
-        //TODO реализовать отражение при перемещении влево/вправо
+        elapsedTime += Gdx.graphics.getDeltaTime();
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        elapsedTime += Gdx.graphics.getDeltaTime();
 
-        batch.draw(player, playerOne.x, playerOne.y, 0,0, playerOne.width, playerOne.height,1,1, 0);
+        batch.draw((TextureRegion) animation.getKeyFrame(elapsedTime, true), playerAnimate.x, playerAnimate.y, playerAnimate.width, playerAnimate.height);
 
+        
         /**
          * Границы перемещения героя
          */
-        if (playerOne.x < 0) {
-            playerOne.x = 0;
+        if (playerAnimate.x < 0) {
+            playerAnimate.x = 0;
         }
-        if (playerOne.x > 960) {
-            playerOne.x = 960;
+        if (playerAnimate.x > 960) {
+            playerAnimate.x = 960;
         }
 
-        if (playerOne.y <= 125) {
-            playerOne.y = 125;
+        if (playerAnimate.y <= 125) {
+            playerAnimate.y = 125;
             vk = new Vector3(x, y, 0);
             score = (score + 1) * scoreMul;
-        }
-        else if (playerOne.y > 272 && playerOne.y < 280){
-            playerOne.y = 280;
-            player.flip(false,true);
-        }
-        else if (playerOne.y >= 415) {
-            playerOne.y = 415;
+        } else if (playerAnimate.y > 415) {
+            playerAnimate.y = 415;
             vk = new Vector3(-x, -y, 0);
             score = (score + 1) * scoreMul;
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            positionP.x -= (400 + delX) * Gdx.graphics.getDeltaTime();
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            positionP.x += (400 + delX) * Gdx.graphics.getDeltaTime();
-        }
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) positionP.x -= (400 + delX) * Gdx.graphics.getDeltaTime();
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) positionP.x += (400 + delX) * Gdx.graphics.getDeltaTime();
     }
-
 
     @Override
     public void dispose() {

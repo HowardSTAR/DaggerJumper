@@ -3,43 +3,37 @@ package com.littlebiglion.base;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-public abstract class BaseScreen   implements Screen, InputProcessor {
+public abstract class BaseScreen implements Screen, InputProcessor {
 
     protected SpriteBatch batch;
     protected OrthographicCamera camera;
-    protected Vector2 position;
+    protected Vector3 position;
     protected Viewport viewport;
-    protected Rectangle playerOne;
-
-
-    /**
-     * Задаем героя
-     */
-
-    protected float widthP = 60;
-    protected float heightP = 60;
+    public static BitmapFont font;
+    public static Music music;
 
     /**
      * Задаем экран
      */
 
     public float widthW = 1024;
-    protected float heightW = 600;
-
-
+    public float heightW = 600;
 
 
     @Override
     public void show() {
         batch = new SpriteBatch();
         camera = new OrthographicCamera();
+
+        music = Gdx.audio.newMusic(Gdx.files.internal("music/main.mp3"));
 
         //  FitViewport –  поддерживает виртуальный размер экрана, всегда сохранять соотношение размера виртуального экрана
         viewport = new FitViewport(widthW,heightW, camera);
@@ -48,9 +42,12 @@ public abstract class BaseScreen   implements Screen, InputProcessor {
 
         Gdx.input.setInputProcessor(this);
 
-        position = new Vector2();
+        position = new Vector3();
+        font = new BitmapFont();
 
     }
+
+
 
     @Override
     public boolean keyDown(int keycode) {
@@ -69,6 +66,8 @@ public abstract class BaseScreen   implements Screen, InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+
+
         return false;
     }
 
@@ -94,6 +93,8 @@ public abstract class BaseScreen   implements Screen, InputProcessor {
 
     @Override
     public void render(float delta) {
+
+        font.getData().setScale(2);
     }
 
     /**
@@ -125,5 +126,7 @@ public abstract class BaseScreen   implements Screen, InputProcessor {
     @Override
     public void dispose() {
         batch.dispose();
+        font.dispose();
+        music.dispose();
     }
 }
