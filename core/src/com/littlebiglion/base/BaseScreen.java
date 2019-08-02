@@ -1,4 +1,4 @@
-package com.littlebiglion.screens;
+package com.littlebiglion.base;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -26,6 +26,7 @@ public abstract class BaseScreen extends ApplicationAdapter implements Screen, I
     protected Array<Rectangle> daggerDrops;
     protected Array<Rectangle> daggerDropsBack;
     protected long lastDropTime;
+
 
     Viewport viewport;
 
@@ -67,11 +68,18 @@ public abstract class BaseScreen extends ApplicationAdapter implements Screen, I
 
     protected void spawnDagger(){
         Rectangle daggerDrop = new Rectangle();
-        daggerDrop.x = 0;
+        Rectangle daggerDrop3 = new Rectangle();
+        daggerDrop.x = -10;
         daggerDrop.y = MathUtils.random(100, 480);
         daggerDrop.width = 1024;
         daggerDrop.height = 700;
         daggerDrops.add(daggerDrop);
+
+        daggerDrop3.x = -10;
+        daggerDrop3.y = MathUtils.random(100, 400);
+        daggerDrop3.width = 1024;
+        daggerDrop3.height = 700;
+        daggerDrops.add(daggerDrop3);
         lastDropTime = TimeUtils.nanoTime();
     }
 
@@ -82,6 +90,13 @@ public abstract class BaseScreen extends ApplicationAdapter implements Screen, I
         daggerDropBack.width = 1024;
         daggerDropBack.height = 700;
         daggerDropsBack.add(daggerDropBack);
+
+        Rectangle daggerDropBack3= new Rectangle();
+        daggerDropBack3.x = 1024;
+        daggerDropBack3.y = MathUtils.random(100, 400);
+        daggerDropBack3.width = 1024;
+        daggerDropBack3.height = 700;
+        daggerDropsBack.add(daggerDropBack3);
         lastDropTime = TimeUtils.nanoTime();
     }
 
