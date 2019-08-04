@@ -4,6 +4,6 @@ This game is about PA!N
 
 Concept (update):
 
-![](DaggerJumper.gif.gif)
+![](DaggerJumper.gif)
 
 
