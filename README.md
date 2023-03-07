@@ -1,10 +1,7 @@
 # DaggerJumper
-This game is about PA!N
 
-link on video: https://www.youtube.com/watch?v=QKRU4dUoBok&t=7s
+Игра которую я создал в далеком 2019 году на языке программирвоания Java.
 
-Game (on this .gif low FPS):
-
-![](DaggerJumper.gif)
-
-
+{% embed url="https://www.youtube.com/watch?t=7s&v=QKRU4dUoBok" %}
+Демонстрация игры
+{% endembed %}
